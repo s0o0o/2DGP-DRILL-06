@@ -1,4 +1,5 @@
 from pico2d import *
+import random
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
@@ -24,10 +25,14 @@ def handle_events():
                 running = False
     pass
 
+handX, handY = 30,30
+isHand = True
 def drawHand():
     print(' #손 랜덤으로 불러오는 것~~ ')
+    handX = random.randint(0,1200)
+    handY = random.randint(0,1000)
 
-
+    hand.clip_draw(0,0,50,52,handX,handY)
     pass
 
 def goToHand():
@@ -53,10 +58,16 @@ hide_cursor()
 while running:
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+
+    if(isHand):
+        drawHand()
+
     if(right):
         character = load_image('rightCha.png')
     elif(left):
         character = load_image('leftCha.png')
+
+        
     character.clip_draw(frame * 100, 0, 100, 100, x, y, 80, 80)
     update_canvas()
     frame = (frame + 1) % 2
