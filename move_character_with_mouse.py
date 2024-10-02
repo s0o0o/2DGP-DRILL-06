@@ -27,6 +27,13 @@ def drawHand():
 def goToHand():
     # 캐릭터가 손 따라가는것~~
 
+def checkRL():
+    # 좌우 확인하는 것~~ 
+    # 새로 생긴 손이 기존 위치보다 왼쪽이면 left = True
+    
+    # 새로 생긴 손이 기존 위치보다 오른쪽이면 right = True 해주기 
+
+
 running = True
 right= True
 left= False # 좌우..
@@ -37,6 +44,10 @@ hide_cursor()
 while running:
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    if(right):
+        character = load_image('rightCha.png')
+    elif(left):
+        character = load_image('leftCha.png')
     character.clip_draw(frame * 100, 0, 100, 100, x, y, 80, 80)
     update_canvas()
     frame = (frame + 1) % 2
