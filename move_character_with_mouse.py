@@ -19,19 +19,28 @@ def handle_events():
             x, y = event.x, TUK_HEIGHT - 1 - event.y
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_q: # q누르면 꺼짐
+                running = False
     pass
 
 def drawHand():
-    # 손 랜덤으로 불러오는 것~~
+    print(' #손 랜덤으로 불러오는 것~~ ')
+
+
+    pass
 
 def goToHand():
-    # 캐릭터가 손 따라가는것~~
+    #
+    print(' 캐릭터가 손 따라가는것~~ ')
+    pass
 
 def checkRL():
-    # 좌우 확인하는 것~~ 
+    print(' # 좌우 확인하는 것~~  ')
+
     # 새로 생긴 손이 기존 위치보다 왼쪽이면 left = True
     
-    # 새로 생긴 손이 기존 위치보다 오른쪽이면 right = True 해주기 
+    # 새로 생긴 손이 기존 위치보다 오른쪽이면 right = True 해주기
 
 
 running = True
@@ -51,7 +60,7 @@ while running:
     character.clip_draw(frame * 100, 0, 100, 100, x, y, 80, 80)
     update_canvas()
     frame = (frame + 1) % 2
-    delay(0.05)
+    delay(0.02)
 
     handle_events()
 
