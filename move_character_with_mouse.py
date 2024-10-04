@@ -24,37 +24,34 @@ def handle_events():
     pass
 
 handX, handY = 100,100
-isHand = True
 
-def drawHand():
-    global handX,handY
-    print(' #손 랜덤으로 불러오는 것~~ ')
-    if(isHand):
-        handX = random.randint(0,1200)
-        handY = random.randint(0,1000)
 
-    pass
 
 speed = 10 # 스피드 설정
 
 def goToHand():
-    global x,y,handX,handY,chaDir
+    global x,y,handX,handY,chaDir,drawHand
     print(' 캐릭터가 손 따라가는것~~ ')
 
     if(x < handX):
         chaDir = 1
-        x+=(speed*chaDir)
+        x+=speed
     elif(x>handX):
         chaDir = -1
-        x+=(speed*chaDir)
+        x-=speed
+    elif(x==handX):
+        chaDir = 1
 
     if(y < handY):
-        y+=(speed*chaDir)
+        y+=speed
     elif(y>handY):
-        y+=(speed*chaDir)
+        y-=speed
+    elif (y == handY):
+        chaDir = 1
 
-    if(abs(x-handX) < 5 and abs(y-handY) < 5):
-        drawHand() # 다시 그림..
+    if(abs(x-handX) <= 5 and abs(y-handY) <= 10):
+        handX = random.randint(0, 1200)
+        handY = random.randint(0, 1000)
 
     pass
 
@@ -85,14 +82,14 @@ frame = 0
 hide_cursor()
 
 while running:
-    #goToHand()
+    goToHand()
     drawCha() # 그리는 함수 하나로 빼기
 
     print(abs(x-handX),abs(y-handY))
     print(x,y)
 
     handle_events()
-    delay(0.02)
+    delay(0.03)
 
 close_canvas()
 
