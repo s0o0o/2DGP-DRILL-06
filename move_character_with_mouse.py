@@ -23,9 +23,11 @@ def handle_events():
                 running = False
     pass
 
-handX, handY = 30,30
+handX, handY = 100,100
 isHand = True
+
 def drawHand():
+    global handX,handY
     print(' #손 랜덤으로 불러오는 것~~ ')
     if(isHand):
         handX = random.randint(0,1200)
@@ -33,34 +35,46 @@ def drawHand():
 
     pass
 
+speed = 10 # 스피드 설정
+
 def goToHand():
-    global x,y
+    global x,y,handX,handY,chaDir
     print(' 캐릭터가 손 따라가는것~~ ')
-    x += (handX - x) / 0.03
-    y += (handY - y) / 0.03
+
+    if(x < handX):
+        chaDir = 1
+        x+=(speed*chaDir)
+    elif(x>handX):
+        chaDir = -1
+        x+=(speed*chaDir)
+
+    if(y < handY):
+        y+=(speed*chaDir)
+    elif(y>handY):
+        y+=(speed*chaDir)
+
+    if(abs(x-handX) < 5 and abs(y-handY) < 5):
+        drawHand() # 다시 그림..
 
     pass
 
-def checkRL():
-    print(' # 좌우 확인하는 것~~  ')
-
-    # 새로 생긴 손이 기존 위치보다 왼쪽이면 left = True
-    
-    # 새로 생긴 손이 기존 위치보다 오른쪽이면 right = True 해주기
-
 def drawCha():
-    global frame,handX,handY,x,y
+    global frame,handX,handY,x,y,character,hand,chaDir
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
 
     hand.clip_draw(0, 0, 50, 52, handX, handY)
 
-    character.clip_draw(frame * 100, 0, 100, 100, x, y, 80, 80)
+    if(chaDir == 1):
+        character = load_image('rightCha.png')
+    elif(chaDir == -1):
+        character = load_image('leftCha.png')
 
+    character.clip_draw(frame * 100, 0, 100, 100, x, y, 80, 80)
 
     update_canvas()
     frame = (frame + 1) % 2
-    delay(0.05)
+
 
 running = True
 
@@ -71,11 +85,14 @@ frame = 0
 hide_cursor()
 
 while running:
-
+    #goToHand()
     drawCha() # 그리는 함수 하나로 빼기
 
+    print(abs(x-handX),abs(y-handY))
+    print(x,y)
 
     handle_events()
+    delay(0.02)
 
 close_canvas()
 
