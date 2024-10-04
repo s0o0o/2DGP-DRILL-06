@@ -24,9 +24,6 @@ def handle_events():
     pass
 
 handX, handY = 100,100
-
-
-
 speed = 10 # 스피드 설정
 
 def goToHand():
@@ -85,8 +82,8 @@ while running:
     goToHand()
     drawCha() # 그리는 함수 하나로 빼기
 
-    print(abs(x-handX),abs(y-handY))
-    print(x,y)
+    #print(abs(x-handX),abs(y-handY))
+    #print(x,y) 확인용
 
     handle_events()
     delay(0.03)
